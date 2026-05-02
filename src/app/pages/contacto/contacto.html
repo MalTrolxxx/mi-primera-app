@@ -1,0 +1,28 @@
+<h1>📬 Contacto</h1>
+
+@if (enviado) {
+  <div>
+    <h2>✅ Mensaje enviado!</h2>
+    <p>Gracias {{ nombre }}, te contactaremos pronto.</p>
+    <button (click)="limpiarFormulario()">Enviar otro mensaje</button>
+  </div>
+} @else {
+  <form>
+    <div>
+      <label>Nombre:</label><br>
+      <input type="text" [(ngModel)]="nombre" placeholder="Tu nombre" name="nombre">
+    </div>
+
+    <div>
+      <label>Email:</label><br>
+      <input type="email" [(ngModel)]="email" placeholder="Tu email" name="email">
+    </div>
+
+    <div>
+      <label>Mensaje:</label><br>
+      <textarea [(ngModel)]="mensaje" placeholder="Tu mensaje" name="mensaje"></textarea>
+    </div>
+
+    <button (click)="enviarFormulario()">Enviar</button>
+  </form>
+}

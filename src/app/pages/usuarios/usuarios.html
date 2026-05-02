@@ -1,0 +1,28 @@
+<h1> Lista de usuarios</h1>
+
+@if (cargando){
+    <p>Cargando usuarios...</p>
+}@else{
+    
+        
+        <table border="1">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+            @for(usuario of usuarios; track usuario.id){
+            <tr>
+                <td>{{usuario.id}}</td>
+                <td>{{usuario.name}}</td>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.phone}}</td>
+            </tr>
+        }
+        </table>
+        
+        
+      
+    
+}

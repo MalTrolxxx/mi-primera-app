@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from "./components/header/header";
 import { FormsModule } from '@angular/forms';
@@ -6,25 +6,30 @@ import { UsuarioService } from './services/usuario';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, FormsModule],
+  imports: [RouterOutlet ,Header, FormsModule],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('mi-primera-app');
-  nombre = 'Jesus Rosales';
-  contador = 0;
 
   usuarios: any[] = [];
-  usuariosActivos: any[] = [];
+  cargando = 0;
 
-  // Inyección de dependencias
-  constructor(private usuarioService: UsuarioService) {
-    this.usuarios = this.usuarioService.getUsuarios();
-    this.usuariosActivos = this.usuarioService.getUsuarioActivo();
+  constructor(private usuarioService: UsuarioService) {}
+
+  ngOnInit() {
+    console.log('ngOnInit ejecutado');
+    this.usuarioService.getUsuarios().subscribe({
+      next: (data) => {
+        console.log('Datos recibidos:', data)
+        this.usuarios = data;
+        this.cargando = 0;
+      },
+      error: (err) => {
+        console.error('Error:', err);
+        this.cargando = 0;
+      }
+    })
   }
-
-  incrementar() { this.contador++ }
-  decrementar() { this.contador-- }
-  resetear() { this.contador = 0 }
 }

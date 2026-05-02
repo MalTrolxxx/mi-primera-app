@@ -1,11 +1,2 @@
 <app-header></app-header>
-
-<h2>Todos los usuarios:</h2>
-@for (usuario of usuarios; track usuario.id) {
-  <p>{{ usuario.nombre }} - {{ usuario.activo ? 'Activo' : 'Inactivo' }}</p>
-}
-
-<h2>Solo activos:</h2>
-@for (usuario of usuariosActivos; track usuario.id) {
-  <p>✅ {{ usuario.nombre }}</p>
-}
+<router-outlet></router-outlet>

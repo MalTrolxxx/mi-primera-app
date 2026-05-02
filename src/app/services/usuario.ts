@@ -1,27 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';//muy importante por que nos permite manejar las respuestas de las peticiones http de manera asincrona
 
 interface Usuario {
-  id: number
-  nombre: string
-  activo: boolean
+  id : number
+  name :  string 
+  email : string
+  phone : string
 }
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UsuarioService {
+  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
 
-  private usuarios: Usuario[] = [
-    { id: 1, nombre: 'Jesus Rosales', activo: true },
-    { id: 2, nombre: 'Maria Gomez', activo: false },
-    { id: 3, nombre: 'Carlos Lopez', activo: true }
-  ]
+ constructor(private http: HttpClient){}
 
-  getUsuarios(): Usuario[] {
-    return this.usuarios
-  }
-
-  getUsuarioActivo(): Usuario[] {
-    return this.usuarios.filter(u => u.activo)
+  getUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.apiUrl);
   }
 }
